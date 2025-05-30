@@ -11,7 +11,7 @@ servers:
     description: WebSocket server for live chat sessions
 
 channels:
-  /chat:
+  /:
     parameters:
       session_id:
         description: A unique identifier for the client session
