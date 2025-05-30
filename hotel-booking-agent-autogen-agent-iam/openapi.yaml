@@ -1,0 +1,49 @@
+openapi: 3.0.3
+info:
+  title: Gardeo Hotel Booking REST API
+  version: 1.0.0
+  description: REST API endpoints for serving UI and handling OAuth callback.
+
+paths:
+  /:
+    get:
+      summary: Serve the booking assistant frontend
+      operationId: getIndex
+      responses:
+        '200':
+          description: Returns the static HTML file for the frontend
+          content:
+            text/html:
+              schema:
+                type: string
+
+  /callback:
+    get:
+      summary: OAuth2 authorization callback
+      operationId: authCallback
+      parameters:
+        - in: query
+          name: code
+          required: true
+          schema:
+            type: string
+          description: The authorization code returned from the identity provider.
+        - in: query
+          name: state
+          required: true
+          schema:
+            type: string
+          description: The state value to correlate the session.
+      responses:
+        '200':
+          description: HTML page with JavaScript to send token to client and close the window.
+          content:
+            text/html:
+              schema:
+                type: string
+        '400':
+          description: Invalid session or state
+        '500':
+          description: Internal server error
+
+components: {}
